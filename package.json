@@ -1,0 +1,21 @@
+{
+	"name": "totalproject",
+	"description": "Empty project",
+	"version": "1.0.0",
+	"main": "index.js",
+	"dependencies": {
+		"mosca": "^2.8.3",
+		"mqtt": "^4.2.8",
+		"node-schedule": "^2.0.0",
+		"total4": "0.0.46"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"empty",
+		"project"
+	],
+	"author": "Peter Širka",
+	"license": "MIT"
+}

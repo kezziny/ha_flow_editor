@@ -1,0 +1,34 @@
+{
+	"tabs": [
+		{
+			"id": "1632413986265",
+			"name": "Main",
+			"icon": "fa-object-ungroup",
+			"linker": "main",
+			"index": 0
+		}
+	],
+	"components": [
+		{
+			"id": "1632413998784",
+			"component": "logicand",
+			"tab": "1632413986265",
+			"name": "And",
+			"x": 95,
+			"y": 102,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "...",
+				"color": "gray"
+			},
+			"color": "#656D78",
+			"notes": "",
+			"options": {}
+		}
+	],
+	"version": 624
+}
