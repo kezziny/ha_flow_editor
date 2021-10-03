@@ -11,22 +11,36 @@ exports.options = {};
 
 exports.html = `<div class="padding">
 	<div data-jc="dropdown" data-jc-path="broker" data-jc-config="datasource:mqttconfig.brokers;required:true" class="m">@(Select a broker)</div>
-	<div data-jc="dropdown" data-jc-path="device" data-jc-config="datasource:mqttconfig.devices;required:true;click:device_changed" class="m">@(Select a device)</div>
+	<div data-jc="dropdown" data-bind="null__click:device_changed" data-jc-path="device" data-jc-config="datasource:mqttconfig.devices;required:true" class="m">@(Select a device)</div>
 	<div data-jc="dropdown" data-jc-path="attribute" data-jc-config="datasource:mqttconfig.attributes;required:true" class="m">@(Select an attribute)</div>
 </div>
 <script>
 	var mqttconfig = { brokers: [], devices: [], attributes: [] };
 	var devices = {};
+	var opt = {};
 
 	function device_changed (element, event, value, path)  {
-        console.log('VALUE HAS BEEN CHANGED:', value);
+        console.log('VALUE HAS BEEN CHANGED:', opt.device);
+		if (opt.device)
+		{
+			Object.keys(devices).forEach(id => {
+				if (devices[id].name === opt.device)
+				{
+					SET('mqttconfig.attributes', Object.keys(devices[id].attributes));
+				}
+			});
+			
+		}
     };
 
 	ON('open.mqttsensor', function(component, options) {
+		opt = options;
 		TRIGGER('mqtt.brokers', 'mqttconfig.brokers');
 		TRIGGER('mqtt.discovery_devices', 'devices');
-		SET('mqttconfig.devices', Object.keys(devices));
-		alert(JSON.stringify(devices));
+		TRIGGER('mqtt.discovery_devices', 'devices');
+		var devicelist = [];
+		Object.keys(devices).forEach(id => devicelist.push(devices[id].name));
+		SET('mqttconfig.devices', devicelist);
 	});
 	ON('save.mqttsensor', function(component, options) {
 		!component.name && (component.name = options.broker + (options.topic ? ' -> ' + options.topic : ''));
