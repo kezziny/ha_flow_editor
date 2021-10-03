@@ -12,6 +12,7 @@ exports.options = {};
 exports.html = `<div class="padding">
 	<div data-jc="dropdown" data-jc-path="broker" data-jc-config="datasource:mqttconfig.brokers;required:true" class="m">@(Select a broker)</div>
 	<div data-jc="textbox" data-jc-path="topic" data-jc-config="placeholder:hello/world;required:true">Topic</div>
+	<div data-jc="textbox" data-jc-path="field" data-jc-config="placeholder:battery">Field (optional)</div>
 	<div class="help m">@(Supports variables, example: \`device/{device-id}\`)</div>
 	<div data-jc="dropdown" data-jc-path="qos" data-jc-config="items:,0,1,2" class="m">@(QoS)</div>
 </div>
@@ -125,7 +126,15 @@ exports.install = function (instance) {
 		if (match) {
 			var flowdata = instance.make({ topic: topic, data: message })
 			flowdata.set('mqtt_wildcard', match);
-			instance.send2(flowdata);
+
+			if (instance.options.field) {
+				if (message.hasOwnProperty(instance.options.field)) {
+					instance.send2(message[instance.options.field]);
+				}
+			}
+			else {
+				instance.send2(flowdata);
+			}
 		}
 	}
 

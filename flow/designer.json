@@ -10,24 +10,75 @@
 	],
 	"components": [
 		{
-			"id": "1632413998784",
-			"component": "logicand",
+			"id": "1633247457720",
+			"component": "mqtt",
 			"tab": "1632413986265",
-			"name": "And",
-			"x": 95,
-			"y": 102,
+			"name": "MQTT broker",
+			"x": 124,
+			"y": 34,
 			"connections": {},
 			"disabledio": {
 				"input": [],
 				"output": []
 			},
 			"state": {
-				"text": "...",
+				"text": "Connected",
+				"color": "green"
+			},
+			"color": "#888600",
+			"notes": "",
+			"options": {
+				"port": 1883,
+				"host": "192.168.1.10",
+				"id": "@192.168.1.10:1883"
+			}
+		},
+		{
+			"id": "1633247682516",
+			"component": "debug",
+			"tab": "1632413986265",
+			"name": "Debug",
+			"x": 300,
+			"y": 159,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "Enabled",
 				"color": "gray"
 			},
-			"color": "#656D78",
+			"color": "#967ADC",
 			"notes": "",
-			"options": {}
+			"options": {
+				"type": "data",
+				"repository": false,
+				"enabled": true
+			}
+		},
+		{
+			"id": "1633248715555",
+			"component": "mqttdiscovery",
+			"tab": "1632413986265",
+			"name": "MQTT discovery",
+			"x": 110,
+			"y": 331,
+			"connections": {},
+			"disabledio": {
+				"input": [],
+				"output": []
+			},
+			"state": {
+				"text": "Connected",
+				"color": "green"
+			},
+			"color": "#888600",
+			"notes": "",
+			"options": {
+				"topic": "homeassistant/#",
+				"broker": "@192.168.1.10:1883"
+			}
 		}
 	],
 	"version": 624

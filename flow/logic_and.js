@@ -1,5 +1,4 @@
 var id = 'logicand';
-var customvar = "empty";
 
 exports.id = id;
 exports.title = 'And';
@@ -84,8 +83,3 @@ exports.install = function (instance) {
 	instance.on('options', instance.reconfigure);
 	instance.reconfigure();
 };
-
-FLOW.trigger('logic.custom', function (next) {
-	FLOW.debug("trigger called: " + customvar);
-	next([customvar]);
-});

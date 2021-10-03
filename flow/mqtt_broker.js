@@ -12,6 +12,10 @@ exports.options = { host: '127.0.0.1', port: 1883 };
 exports.traffic = false;
 exports.npm = ['mqtt'];
 
+var devices = {
+	"test": "egy"
+};
+
 exports.html = `<div class="padding">
 	<div class="row">
 		<div class="col-md-6">
@@ -322,9 +326,7 @@ Broker.prototype.connect = function () {
 	self.client.on('message', function (topic, message) {
 		message = message.toString();
 		if (message[0] === '{') {
-			TRY(function () {
-				message = JSON.parse(message);
-			}, () => FLOW.debug('MQTT: Error parsing data', message));
+			message = JSON.parse(message);
 		}
 		EMIT('mqtt.brokers.message', self.id, topic, message);
 	});
@@ -393,6 +395,9 @@ Broker.prototype.subscribe = function (componentid, topic) {
 
 Broker.prototype.resubscribe = function () {
 	var self = this;
+
+	self.client.subscribe("homeassistant/#");
+
 	var topics = Object.keys(self.subscribtions);
 	for (var i = 0; i < topics.length; i++)
 		self.client.subscribe(topics[i]);
